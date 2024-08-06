@@ -2,28 +2,26 @@ import java.util.*;
 
 public class Min_no_of_Pushes_word_3016 {
     public static void main(String[] args) {
-        String word="aabbccddeeffgghhiiiiii";
-                char[] ch= word.toCharArray();
-                Map<Character,Integer> map=new HashMap<>();
-                for (int i=0;i<ch.length ;i++ ){
-                    map.put(ch[i], map.getOrDefault(ch[i],0)+1);
+            String word="aabbccddeeffgghhiiiiii";
+                int[] arr = new int[26];
+                for(int i=0;i<word.length();i++){
+                    arr[word.charAt(i) - 'a']++;
                 }
-
-                int []counts=new int[map.size()];
-                int index = 0;
-                for (Map.Entry<Character, Integer> me : map.entrySet()) {
-                    counts[index++] = me.getValue();
-                }
-                Arrays.sort(counts);
-
-
-                int sum=0,count=0;
-                for(int i=0;i<counts.length;i++){
-                    if(i%8==0){
-                        count++;
+                Arrays.sort(arr);
+                int i=25;
+                int count = 0;
+                int start = 1;
+                int ans =0;
+                while( i >= 0 && arr[i] != 0){
+                    ans+=(start * arr[i]);
+                    count++;
+                    if(count == 8){
+                        start++;
+                        count = 0;
                     }
-                    sum=sum+count*counts[counts.length-i-1];
+                    i--;
                 }
-        System.out.println(sum);
+        System.out.println(ans);
+
     }
 }
